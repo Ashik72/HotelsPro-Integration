@@ -1,0 +1,3414 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Cosmos Coredata API",
+        "description": "Cosmos Coredata API",
+        "version": "1.0.0",
+        "x-logo": {
+          "url": "/static/img/Cosmos-Logo.png",
+          "backgroundColor": "#fafafa"
+        }
+    },
+    "host": "cosmos.metglobal.tech",
+    "schemes": [
+        "http"
+    ],
+    "basePath": "/api/static/v1",
+    "produces": [
+        "application/json"
+    ],
+    "tags": [
+        {
+            "name": "Hotel",
+            "description": ""
+        },
+        {
+            "name": "Destination",
+            "description": ""
+        },
+        {
+            "name": "Country",
+            "description": ""
+        },
+        {
+            "name": "Region",
+            "description": ""
+        },
+        {
+            "name": "HotelTheme",
+            "description": ""
+        },
+        {
+            "name": "HotelType",
+            "description": ""
+        },
+        {
+            "name": "Chain",
+            "description": ""
+        },
+        {
+            "name": "Facility",
+            "description": ""
+        },
+        {
+            "name": "FacilityCategory",
+            "description": ""
+        },
+        {
+            "name": "FacilityTheme",
+            "description": ""
+        },
+        {
+            "name": "FacilityScope",
+            "description": ""
+        },
+        {
+            "name": "FacilityType",
+            "description": ""
+        },
+        {
+            "name": "ImageCategory",
+            "description": ""
+        },
+        {
+            "name": "Continent",
+            "description": ""
+        },
+        {
+            "name": "RoomType",
+            "description": ""
+        },
+        {
+            "name": "RoomCategory",
+            "description": ""
+        },
+        {
+            "name": "MealType",
+            "description": ""
+        },
+        {
+            "name": "Language",
+            "description": ""
+        },
+    ],
+    "securityDefinitions": {
+        "basicAuth": {
+            "type": "basic",
+            "description": "HTTP Basic Authentication. Works over HTTP and HTTPS"
+        }
+    },
+    "paths": {
+        "/hotels/": {
+            "get": {
+                "summary": "List of Hotels",
+                "description": "List of hotels",
+                "tags": [
+                    "Hotel"
+                ],
+                "parameters": [
+                    {
+                        "name": "since",
+                        "type": "date",
+                        "required": false,
+                        "in": "query",
+                        "description": "Represents a list of records by given date (YYYY-MM-DD)",
+                    },
+                    {
+                        "name": "action",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "enum": [
+                            "added",
+                            "updated",
+                            "deleted"
+                        ],
+                        "description": "Represents a list of records by its value"
+                    },
+                    {
+                        "name": "country",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Represents a list of records by code of the country"
+                    },
+                    {
+                        "name": "destination",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Represents a list of records by code of the destination"
+                    },
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by hotel name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for hotels. for example: code,name "
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Hotel object",
+                        "schema": {
+                            "$ref": "#/definitions/Hotel"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/hotels/{code}/": {
+            "get": {
+                "summary": "Detail of Hotel",
+                "description": "Detail of Hotel",
+                "tags": [
+                    "Hotel"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of hotel",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Hotel"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/hotels/translations/": {
+            "get": {
+                "summary": "List of Hotel Translations",
+                "description": "List of hotel translations",
+                "tags": [
+                    "Hotel"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/HotelTranslation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/destinations/": {
+            "get": {
+                "tags": [
+                    "Destination"
+                ],
+                "summary": "List of Destinations",
+                "description": "List of destinations",
+                "responses": {
+                    "200": {
+                        "description": "Destination object",
+                        "schema": {
+                            "$ref": "#/definitions/Destination"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "country",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Represents a list of records by code of the country"
+                    },
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for destinations. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/destinations/{code}/": {
+            "get": {
+                "summary": "Detail of Destination",
+                "description": "Detail of Destination",
+                "tags": [
+                    "Destination"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of destination",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Destination"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/destinations/translations/": {
+            "get": {
+                "summary": "List of destination Translations",
+                "description": "List of destination translations",
+                "tags": [
+                    "Destination"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/countries/": {
+            "get": {
+                "tags":[
+                    "Country"
+                ],
+                "summary": "List of Countries",
+                "description": "List of countries",
+                "responses": {
+                    "200": {
+                        "description": "Country object",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for countries. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/countries/{code}/": {
+            "get": {
+                "summary": "Detail of Country",
+                "description": "Detail of Country",
+                "tags": [
+                    "Country"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of country",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/countries/translations/": {
+            "get": {
+                "summary": "List of country Translations",
+                "description": "List of country translations",
+                "tags": [
+                    "Country"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/regions/": {
+            "get": {
+                "tags":[
+                    "Region"
+                ],
+                "summary": "List of Regions",
+                "description": "List of regions",
+                "responses": {
+                    "200": {
+                        "description": "Region object",
+                        "schema": {
+                            "$ref": "#/definitions/Region"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for regions. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/regions/{code}/": {
+            "get": {
+                "summary": "Detail of Region",
+                "description": "Detail of Region",
+                "tags": [
+                    "Region"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of region",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Region"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/regions/translations/": {
+            "get": {
+                "summary": "List of region Translations",
+                "description": "List of region translations",
+                "tags": [
+                    "Region"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/hotel-themes/": {
+            "get": {
+                "tags": [
+                    "HotelTheme"
+                ],
+                "summary": "List of Hotel Themes",
+                "description": "List of Hotel Themes",
+                "responses": {
+                    "200": {
+                        "description": "Hotel Theme object",
+                        "schema": {
+                            "$ref": "#/definitions/HotelTheme"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for hotel-themes. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/hotel-themes/{code}/": {
+            "get": {
+                "summary": "Detail of HotelTheme",
+                "description": "Detail of HotelTheme",
+                "tags": [
+                    "HotelTheme"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of hotel theme",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/HotelTheme"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/hotel-themes/translations/": {
+            "get": {
+                "summary": "List of Hotel theme Translations",
+                "description": "List of hotel theme translations",
+                "tags": [
+                    "HotelTheme"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/hotel-types/": {
+            "get": {
+                "tags": [
+                    "HotelType"
+                ],
+                "summary": "List of Hotel Types",
+                "description": "List of Hotel Types",
+                "responses": {
+                    "200": {
+                        "description": "Hotel Type object",
+                        "schema": {
+                            "$ref": "#/definitions/HotelType"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for hotel-types. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/hotel-types/{code}/": {
+            "get": {
+                "summary": "Detail of HotelType",
+                "description": "Detail of HotelType",
+                "tags": [
+                    "HotelType"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of HotelType",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/HotelType"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/hotel-types/translations/": {
+            "get": {
+                "summary": "List of Hotel type Translations",
+                "description": "List of hotel type translations",
+                "tags": [
+                    "HotelType"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/chains/": {
+            "get": {
+                "tags": [
+                    "Chain"
+                ],
+                "summary": "List of Chains",
+                "description": "List of Chains",
+                "responses": {
+                    "200": {
+                        "description": "Chain Type object",
+                        "schema": {
+                            "$ref": "#/definitions/Chain"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for chains. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/chains/{code}/": {
+            "get": {
+                "summary": "Detail of Chain",
+                "description": "Detail of Chain",
+                "tags": [
+                    "Chain"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of Chain",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Chain"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/chains/translations/": {
+            "get": {
+                "summary": "List of chain Translations",
+                "description": "List of chain translations",
+                "tags": [
+                    "Chain"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facilities/": {
+            "get": {
+                "tags": [
+                    "Facility"
+                ],
+                "summary": "List of Facilities",
+                "description": "List of Facilities",
+                "responses": {
+                    "200": {
+                        "description": "Facility Type object",
+                        "schema": {
+                            "$ref": "#/definitions/Facility"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for facilities. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facilities/{code}/": {
+            "get": {
+                "summary": "Detail of Facility",
+                "description": "Detail of Facility",
+                "tags": [
+                    "Facility"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of Facility",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Facility"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facilities/translations/": {
+            "get": {
+                "summary": "List of facility Translations",
+                "description": "List of facility translations",
+                "tags": [
+                    "Facility"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facility-categories/": {
+            "get": {
+                "tags": [
+                    "FacilityCategory"
+                ],
+                "summary": "List of Facility Categories",
+                "description": "List of facility Categories",
+                "responses": {
+                    "200": {
+                        "description": "Facility Category object",
+                        "schema": {
+                            "$ref": "#/definitions/FacilityCategory"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for facility-categories. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facility-categories/{code}/": {
+            "get": {
+                "summary": "Detail of FacilityCategory",
+                "description": "Detail of FacilityCategory",
+                "tags": [
+                    "FacilityCategory"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of FacilityCategory",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/FacilityCategory"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facility-categories/translations/": {
+            "get": {
+                "summary": "List of facility category Translations",
+                "description": "List of facility category translations",
+                "tags": [
+                    "FacilityCategory"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facility-themes/": {
+            "get": {
+                "tags": [
+                    "FacilityTheme"
+                ],
+                "summary": "List of Facility Themes",
+                "description": "List of facility Themes",
+                "responses": {
+                    "200": {
+                        "description": "Facility Theme object",
+                        "schema": {
+                            "$ref": "#/definitions/FacilityTheme"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for facility-themes. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facility-themes/{code}/": {
+            "get": {
+                "summary": "Detail of FacilityTheme",
+                "description": "Detail of FacilityTheme",
+                "tags": [
+                    "FacilityTheme"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of FacilityTheme",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/FacilityTheme"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facility-themes/translations/": {
+            "get": {
+                "summary": "List of facility theme Translations",
+                "description": "List of facility theme translations",
+                "tags": [
+                    "FacilityTheme"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facility-scopes/": {
+            "get": {
+                "tags": [
+                    "FacilityScope"
+                ],
+                "summary": "List of Facility Scopes",
+                "description": "List of facility Scopes",
+                "responses": {
+                    "200": {
+                        "description": "Facility Scope object",
+                        "schema": {
+                            "$ref": "#/definitions/FacilityScope"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for facility-scopes. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facility-scopes/{code}/": {
+            "get": {
+                "summary": "Detail of FacilityScope",
+                "description": "Detail of FacilityScope",
+                "tags": [
+                    "FacilityScope"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of FacilityScope",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/FacilityScope"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facility-scopes/translations/": {
+            "get": {
+                "summary": "List of facility scope Translations",
+                "description": "List of facility scope translations",
+                "tags": [
+                    "FacilityScope"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facility-types/": {
+            "get": {
+                "tags": [
+                    "FacilityType"
+                ],
+                "summary": "List of Facility Types",
+                "description": "List of facility Types",
+                "responses": {
+                    "200": {
+                        "description": "Facility Type object",
+                        "schema": {
+                            "$ref": "#/definitions/FacilityType"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for facility-types. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facility-types/{code}/": {
+            "get": {
+                "summary": "Detail of FacilityType",
+                "description": "Detail of FacilityType",
+                "tags": [
+                    "FacilityType"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of FacilityType",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/FacilityType"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/facility-types/translations/": {
+            "get": {
+                "summary": "List of facility type Translations",
+                "description": "List of facility type translations",
+                "tags": [
+                    "FacilityType"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/image-categories/": {
+            "get": {
+                "tags": [
+                    "ImageCategory"
+                ],
+                "summary": "List of Image Categories",
+                "description": "List of Image Categories",
+                "responses": {
+                    "200": {
+                        "description": "Image Category object",
+                        "schema": {
+                            "$ref": "#/definitions/ImageCategory"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for image-categories. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/image-categories/{code}/": {
+            "get": {
+                "summary": "Detail of ImageCategory",
+                "description": "Detail of ImageCategory",
+                "tags": [
+                    "ImageCategory"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of ImageCategory",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ImageCategory"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/image-categories/translations/": {
+            "get": {
+                "summary": "List of image category Translations",
+                "description": "List of image category translations",
+                "tags": [
+                    "ImageCategory"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/continents/": {
+            "get": {
+                "tags": [
+                    "Continent"
+                ],
+                "summary": "List of Continents",
+                "description": "List of Continents",
+                "responses": {
+                    "200": {
+                        "description": "Continent object",
+                        "schema": {
+                            "$ref": "#/definitions/Continent"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for continents. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/continents/{code}/": {
+            "get": {
+                "summary": "Detail of Continent",
+                "description": "Detail of Continent",
+                "tags": [
+                    "Continent"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of Continent",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Continent"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/continents/translations/": {
+            "get": {
+                "summary": "List of continent Translations",
+                "description": "List of continent translations",
+                "tags": [
+                    "Continent"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/room-types/": {
+            "get": {
+                "tags": [
+                    "RoomType"
+                ],
+                "summary": "List of Room Types",
+                "description": "List of Room Types",
+                "responses": {
+                    "200": {
+                        "description": "RoomType object",
+                        "schema": {
+                            "$ref": "#/definitions/RoomType"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for room-types. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/room-types/{code}/": {
+            "get": {
+                "summary": "Detail of RoomType",
+                "description": "Detail of RoomType",
+                "tags": [
+                    "RoomType"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of RoomType",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/RoomType"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/room-types/translations/": {
+            "get": {
+                "summary": "List of room type Translations",
+                "description": "List of room type translations",
+                "tags": [
+                    "RoomType"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/room-categories/": {
+            "get": {
+                "tags": [
+                    "RoomCategory"
+                ],
+                "summary": "List of Room Categories",
+                "description": "List of Room Categories",
+                "responses": {
+                    "200": {
+                        "description": "RoomCategory object",
+                        "schema": {
+                            "$ref": "#/definitions/RoomCategory"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for room-categories. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/room-categories/{code}/": {
+            "get": {
+                "summary": "Detail of RoomCategory",
+                "description": "Detail of RoomCategory",
+                "tags": [
+                    "RoomCategory"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of RoomCategory",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/RoomCategory"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/room-categories/translations/": {
+            "get": {
+                "summary": "List of room category Translations",
+                "description": "List of room category translations",
+                "tags": [
+                    "RoomCategory"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Translation object",
+                        "schema": {
+                            "$ref": "#/definitions/Translation"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/meal-types/": {
+            "get": {
+                "tags": [
+                    "MealType"
+                ],
+                "summary": "List of Meal Types",
+                "description": "List of Meal Types",
+                "responses": {
+                    "200": {
+                        "description": "MealType object",
+                        "schema": {
+                            "$ref": "#/definitions/MealType"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by name"
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "string",
+                        "required": false,
+                        "in": "query",
+                        "description": "Bring only requesting fields for meal-types. for example: code,name "
+                    }
+                ],
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/meal-types/{code}/": {
+            "get": {
+                "summary": "Detail of MealType",
+                "description": "Detail of MealType",
+                "tags": [
+                    "MealType"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of MealType",
+                        "required": true,
+                        "type": "string",
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/MealType"
+                        }
+                    }
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/meal-types/translations/": {
+            "get": {
+                "summary": "List of meal type Translations",
+                "description": "List of meal type translations",
+                "tags": [
+                    "MealType"
+                ],
+                "parameters": [
+                    {
+                        "name": "language_code",
+                        "type": "string",
+                        "required": true,
+                        "in": "query",
+                        "enum": [
+                            "tr_tr",
+                            "de_de",
+                            "fr_fr",
+                            "es_es",
+                            "it_it",
+                            "pt_pt",
+                            "fi_fi",
+                            "sv_se",
+                            "nn_no",
+                            "nl_nl",
+                            "da_dk",
+                            "cs_cz",
+                            "hu_hu",
+                            "ro_ro",
+                            "ja_jp",
+                            "zh_cn",
+                            "pl_pl",
+                            "el_gr",
+                            "ru_ru",
+                            "bg_bg",
+                            "ar_eg",
+                            "id_id",
+                            "ko_kr",
+                            "he_il",
+                            "fa_ir"
+                        ]
+                    },
+                    {
+                        "name": "next",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query",
+                        "description": "Next page cursor to use pagination. This field required after first page.
+                        You can get the value of this variable from 'next' parameter in the response."
+                    },
+                    {
+                        "name": "limit",
+                        "type": "integer",
+                        "required": false,
+                        "in": "query"
+                    }
+                ],
+
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+        "/languages/": {
+            "get": {
+                "summary": "List of Languages",
+                "description": "List of Languages",
+                "tags": [
+                    "Language"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Language object",
+                        "schema": {
+                            "$ref": "#/definitions/Language"
+                        }
+                    },
+                },
+                "security": [{
+                    "basicAuth": []
+                }]
+            }
+        },
+    },
+    "definitions": {
+        "Hotel": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the hotel"
+                },
+                "master": {
+                    "type": "referral",
+                    "description": "Master hotel code (hotels)
+                                    This code refers to the master hotel code reachable only from 'hotels/deleted'
+                                    table or action=deleted in API request."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the hotel. For usage and display proposals, go to Convension Proposals section."
+                },
+                "country":{
+                    "type": "referral",
+                    "description": "Country code of the hotels location (countries)"
+                },
+                "destination": {
+                    "type": "referral",
+                    "description": "Destination code of the hotels location (destinations)"
+                },
+                "zipcode": {
+                    "type": "string",
+                    "description": "Zipcode of the hotel"
+                },
+                "address": {
+                    "type": "string",
+                    "description": "Address of the hotel"
+                },
+                "latitude": {
+                    "type": "float",
+                    "description": "Geographic coordinate latitude information that specifies the north-south position of hotels point on Earth's surface."
+                },
+                "longitude": {
+                    "type": "float",
+                    "description": "Geographic coordinate longitude information that specifies the north-south position of hotels point on Earth's surface."
+                },
+                "phone": {
+                    "type": "string",
+                    "description": "Phone number of the hotel"
+                },
+                "currencycode": {
+                    "type": "currency-tag",
+                    "description": "Currency code of the hotels used currency. Currency codes are global designators defined by ISO-4217."
+                },
+                "hotel_type": {
+                    "type": "referral",
+                    "description": "Hotel Type code of the hotels type (hotel-types)"
+                },
+                "stars": {
+                    "type": "float",
+                    "description": "Hotels star rating (1 to 5) given by hotels local country authority. The source of star rating is hotelier and its local authority.
+                                    Cosmos project doesn't have any star rating valuation process."
+                },
+                "availability_score": {
+                    "type": "float",
+                    "description": "This value give the availability score (0 to 1) for hotel and calculated by (hotel response count / hotel search request conut)"
+                },
+                "nr_rooms": {
+                    "type": "integer",
+                    "description": "Total number of rooms in the hotel"
+                },
+                "nr_restaurants": {
+                    "type": "string",
+                    "description": "Total number of restaurants in the hotel"
+                },
+                "nr_bars": {
+                    "type": "string",
+                    "description": "Total number of bars in the hotel"
+                },
+                "nr_halls": {
+                    "type": "string",
+                    "description": "Total number of halls in the hotel"
+                },
+                "year_built": {
+                    "type": "string",
+                    "description": "First built year of the hotel"
+                },
+                "themes": {
+                    "type": "referral (list)",
+                    "description": "List of theme codes separated with comma, including themes which the hotel compromises (themes)"
+                },
+                "facilities": {
+                    "type": "referral (list)",
+                    "description": "List of facility codes separated with comma, including facilities which the hotel compromises (facilities)"
+                },
+                "checkin_from": {
+                    "type": "string",
+                    "description": "Earliest check in time in local. Formatted in ISO 8601 24h format HH:MM"
+                },
+                "checkout_to": {
+                    "type": "string",
+                    "description": "Latest check out time in local. Formatted in ISO 8601 24h format HH:MM"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the hotel information."
+                },
+                "chains": {
+                    "type": "referral (list)",
+                    "description": "List of hotel chain codes separated with comma, including hotel chains which the hotel belongs to (chains)"
+                },
+                "descriptions": {
+                    "type": "dataset container",
+                    "description": "Description sets in default language",
+                    "language-country": {
+                        "type": "Language-Country Tag",
+                        "description": "Language and country information of hotel description content"
+                    },
+                    "hotel_information": {
+                        "type": "string",
+                        "description": "Hotel information of the hotel providing overall, general important points about hotel such as history, architecture, view, outstanding features and important facilities such as spa, golf etc."
+                    },
+                    "hotel_introduction": {
+                        "type": "string",
+                        "description": "Hotel Introduction of the hotel providing brief information about the hotel with a sentence to give an overall impression of the hotel to the traveler at first sight."
+                    },
+                    "location_information": {
+                        "type": "string",
+                        "description": "Location information of the hotel providing where the hotel is located within the destination and some details on the neighborhood, transportation and statement  on how to get the hotel."
+                    },
+                    "attraction_information": {
+                        "type": "string",
+                        "description": "Attraction information of the hotel providing details on the tourist attractions, popular landmarks, important points such as places to visit around the hotel, near activities etc."
+                    },
+                    "hotel_amenity": {
+                        "type": "string",
+                        "description": "Hotel amenities details the facilities and services provided in public areas on the hotel promises including food&drink facilities, pool, entertainment areas, lobby features, reception services."
+                    }
+                },
+                "images": {
+                    "type": "dataset container",
+                    "description": "Image library of the hotel.",
+                    "category": {
+                        "type": "referral",
+                        "description": "Image category code of the image (image-categories)"
+                    },
+                    "tag": {
+                        "type": "string",
+                        "description": "Proposed text to be displayed in image alt tag including image information"
+                    },
+                    "original": {
+                        "type": "string",
+                        "description": "URL address of the original photo. Not processed, original photo which hotelier provides."
+                    },
+                    "thumbnail_images": {
+                        "type": "dataset container",
+                        "description": "Thumbnail image library of the hotel image.",
+                        "large": {
+                            "type": "string",
+                            "description": "Processed large version of the original image. Width of the image limited with 750 pixels. If the original image width is lower than 750 pixels, large field returns as 'null'"
+                        },
+                        "small": {
+                            "type": "string",
+                            "description": "Processed small version of the original image. Width or height limited with 70 pixels by keeping aspect ratio constant."
+                        },
+                        "mid": {
+                            "type": "string",
+                            "description": "Processed middle version of the original image. Width limited with 160 pixels, height limited with 100 pixels by keeping aspect ratio constant."
+                        }
+                    }
+                },
+            }
+        },
+        "Destination": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the destination"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the destination. For usage and display proposals, go to Convension Proposals section."
+                },
+                "parent": {
+                    "type": "referral",
+                    "description": "Parent destination code (destinations)"
+                },
+                "country": {
+                    "type": "referral",
+                    "description": "Code of the country which the destination belongs to (countries)"
+                },
+                "regions": {
+                    "type": "referral (list)",
+                    "description": "List of region codes separated by comma which the destination belogs to (regions)"
+                },
+                "latitude": {
+                    "type": "float",
+                    "description": "Geographic coordinate of the destination centre that specifies north-south position of destinations point on the Earth's surface."
+                },
+                "longitude": {
+                    "type": "float",
+                    "description": "Geographic coordinate of the destination centre that specifies north-south position of destinations point on the Earth's surface."
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the destination."
+                },
+            }
+        },
+        "Region": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the region"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the region. For usage and display proposals, go to Convension Proposals section."
+                },
+                "country": {
+                    "type": "referral",
+                    "description": "Code of the country which the region belongs to (countries)"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind of the region (possible contents are : province, state, island, other)"
+                },
+                "state_code": {
+                    "type": "string",
+                    "description": "State code of the region. If region is not state, returns as 'null'."
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the region."
+                },
+            }
+        },
+        "Country": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the country"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the country."
+                },
+                "continent": {
+                    "type": "referral",
+                    "description": "Code of the continent which the region belongs to (continents)"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the country."
+                },
+            }
+        },
+        "HotelTheme": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the hotel theme"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the hotel theme"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the hotel theme."
+                },
+            }
+        },
+        "HotelType": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the hotel type"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the hotel type"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the hotel type."
+                },
+            }
+        },
+        "Chain": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the hotel chain"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the hotel chain"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the hotel chain."
+                },
+            }
+        },
+        "FacilityCategory": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the facility category"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the facility category"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the facility category."
+                }
+            }
+        },
+        "FacilityTheme": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the facility theme"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the facility theme"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the facility theme."
+                }
+            }
+        },
+        "FacilityScope": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the facility scope"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the facility scope"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the facility scope."
+                }
+            }
+        },
+        "FacilityType": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the facility type"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the facility type"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the facility type."
+                },
+            }
+        },
+        "Facility": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the facility"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the facility"
+                },
+                "facility_type": {
+                    "type": "referral",
+                    "description": "Code of the facility type which the facility meets (facility-types)"
+                },
+                "category": {
+                    "type": "referral",
+                    "description": "Code of the facility category which the facility meets (facilities/categories)"
+                },
+                "themes": {
+                    "type": "referral (list)",
+                    "description": "List of theme codes separated by comma which the facility meets (facilities/themes)"
+                },
+                "scope": {
+                    "type": "referral",
+                    "description": "Code of the scope which the facility meets (facilities/scopes)"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the hotel theme."
+                },
+            }
+        },
+        "Continent": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the continent"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the continent"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the continent."
+                },
+            }
+        },
+        "RoomType": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "name of room type"
+                }
+            }
+        },
+        "RoomCategory": {
+            "type": "object",
+            "properties": {
+                "code" : {
+                    "type": "string",
+                    "description": "Code of the room type"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the room type"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the room type"
+                }
+            }
+        },
+        "MealType": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the meal type"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the meal type"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the meal type"
+                }
+            }
+        },
+        "ImageCategory": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Code of the image categoryCode of the room type"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the image categoryName of the room type"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Latest update date and time of the image categoryLatest update date and time of the room type"
+                }
+            }
+        },
+
+        "Translation": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "code of entity"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "translation"
+                }
+            }
+        },
+
+        "Language": {
+            "type": "object",
+            "properties": {
+                "alias": {
+                    "type": "string",
+                    "description": "alias for language code"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "code of entity"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "language name"
+                },
+            }
+        },
+
+
+        "HotelTranslation": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "code of entity"
+                },
+                "descriptions": {
+                    "type": "referral",
+                    "description": "translation"
+                }
+            }
+        },
+
+        "Error": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

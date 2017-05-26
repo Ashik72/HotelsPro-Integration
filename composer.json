@@ -1,0 +1,7 @@
+{
+    "require": {
+        "kint-php/kint": "^2.0",
+        "mashape/unirest-php": "^3.0",
+        "maxakawizard/json-collection-parser": "^1.1"
+    }
+}
